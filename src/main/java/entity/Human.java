@@ -1,4 +1,4 @@
-package enetety;
+package entity;
 
 import java.sql.Timestamp;
 
