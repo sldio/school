@@ -5,4 +5,5 @@ package enetety;
  */
 public class People extends Human
 {
+
 }

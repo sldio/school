@@ -7,8 +7,48 @@ import java.sql.Timestamp;
  */
 public abstract class Human
 {
-    String firstName;
-    String serName;
-    Timestamp birthDate;
-    String position;
+    private String firstName;
+    private String serName;
+    private Timestamp birthDate;
+    private String position;
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public String getSerName()
+    {
+        return serName;
+    }
+
+    public void setSerName(String serName)
+    {
+        this.serName = serName;
+    }
+
+    public Timestamp getBirthDate()
+    {
+        return birthDate;
+    }
+
+    public void setBirthDate(Timestamp birthDate)
+    {
+        this.birthDate = birthDate;
+    }
+
+    public String getPosition()
+    {
+        return position;
+    }
+
+    public void setPosition(String position)
+    {
+        this.position = position;
+    }
 }
