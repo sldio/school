@@ -51,4 +51,10 @@ public abstract class Human
     {
         this.position = position;
     }
+
+    public String toString()
+    {
+        String rez = "name - " + firstName + " sername - " + serName + " birthdate - " + birthDate + " position - " + position;
+        return rez;
+    }
 }
