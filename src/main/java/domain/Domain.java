@@ -1,7 +1,12 @@
+package domain;
+
 import entity.Human;
 import entity.Pupil;
 import entity.Teacher;
 import org.hibernate.Session;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repositories.PupilRepository;
+import repositories.TeacherRepository;
 import service.PupilDAOImpl;
 import service.TeacherDAOImpl;
 import util.HibernateUtil;
@@ -13,27 +18,32 @@ import java.util.List;
 /**
  * Created by 1 on 23.08.2017.
  */
-public class Main
+public class Domain
 {
     public static void main(String[] args)
     {
-        PupilDAOImpl pupilDAOimpl = new PupilDAOImpl();
-        TeacherDAOImpl teacherDAOimpl = new TeacherDAOImpl();
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContent.xml");
 
-        /*Pupil pupil = new Pupil();
+        PupilRepository pupilRepository = context.getBean(PupilRepository.class);
+        TeacherRepository teacherRepository = context.getBean(TeacherRepository.class);
+
+        Pupil pupil = new Pupil();
         pupil.setFirstName("nameDAO");
         pupil.setSerName("sernameDAO");
         pupil.setPosition("pupil");
         pupil.setAge(10);
         pupil.setBirthDate(LocalDate.now());
-        pupilDAOimpl.add(pupil);*/
+        pupilRepository.saveAndFlush(pupil);
+        List<Pupil> list = pupilRepository.findAll();
 
-        List<Pupil> list = pupilDAOimpl.getAll();
-        for (Pupil pupil:list)
+        System.out.println("****************************************************");
+        for (Pupil currentPupil: list)
         {
-            System.out.println(pupil);
+            System.out.println(currentPupil);
         }
 
+        System.out.println("****************************************************");
+        System.out.println(pupilRepository.getOne(3));
         /*Teacher teacher = new Teacher();
         teacher.setFirstName("teacherFirstDAO2");
         teacher.setBirthDate(LocalDate.now());
@@ -48,10 +58,10 @@ public class Main
             System.out.println(human.toString());
         }*/
 
-        Pupil p = pupilDAOimpl.getById(8);
+        //Pupil p = pupilDAOimpl.getById(8);
         //Teacher t = (Teacher)teacherDAOimpl.getById(3);
-        System.out.println(p.toString());
+        //System.out.println(p.toString());
         //System.out.println(t.toString());
-        HibernateUtil.shutdownSessionFactory();
+        //HibernateUtil.shutdownSessionFactory();
     }
 }

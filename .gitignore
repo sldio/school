@@ -21,5 +21,7 @@ target/
 out/
 src/main/resources/hibernate.properties
 /src/main/resources/hibernatePostgres.cfg.xml
-/src/main/resources/hibernate.cfg.xml
 /src/main/java/Main.java
+
+!/src/main/resources/applicationContent.xml
+!/src/main/resources/hibernate.cfg.xml
