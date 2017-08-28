@@ -1,18 +1,12 @@
 package domain;
 
-import entity.Human;
 import entity.Pupil;
-import entity.Teacher;
-import org.hibernate.Session;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.PupilRepository;
 import repositories.TeacherRepository;
-import service.PupilDAOImpl;
-import service.TeacherDAOImpl;
 import util.HibernateUtil;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,13 +31,13 @@ public class Domain
         List<Pupil> list = pupilRepository.findAll();
 
         System.out.println("****************************************************");
-        for (Pupil currentPupil: list)
+        for (Pupil currentPupil : list)
         {
             System.out.println(currentPupil);
         }
 
         System.out.println("****************************************************");
-        System.out.println(pupilRepository.getOne(3));
+        System.out.println(pupilRepository.getOne(3L));
         /*Teacher teacher = new Teacher();
         teacher.setFirstName("teacherFirstDAO2");
         teacher.setBirthDate(LocalDate.now());
@@ -62,6 +56,6 @@ public class Domain
         //Teacher t = (Teacher)teacherDAOimpl.getById(3);
         //System.out.println(p.toString());
         //System.out.println(t.toString());
-        //HibernateUtil.shutdownSessionFactory();
+        HibernateUtil.shutdownSessionFactory();
     }
 }

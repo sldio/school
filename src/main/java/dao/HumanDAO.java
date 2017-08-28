@@ -10,9 +10,14 @@ import java.util.List;
 public interface HumanDAO
 {
     void add(Human human);
+
     void delete(Human human);
+
     void deletByID(int id);
+
     void update(Human human);
+
     Human getById(int id);
+
     List<Human> getAll();
 }

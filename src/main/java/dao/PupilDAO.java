@@ -1,6 +1,5 @@
 package dao;
 
-import entity.Human;
 import entity.Pupil;
 
 import java.util.List;
@@ -11,9 +10,14 @@ import java.util.List;
 public interface PupilDAO
 {
     void add(Pupil pupil);
+
     void delete(Pupil pupil);
+
     void deletByID(int id);
+
     void update(Pupil pupil);
+
     Pupil getById(int id);
+
     List<Pupil> getAll();
 }

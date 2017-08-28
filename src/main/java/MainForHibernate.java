@@ -3,6 +3,7 @@ import service.PupilDAOImpl;
 import service.TeacherDAOImpl;
 import util.HibernateUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,18 +16,18 @@ public class MainForHibernate
         PupilDAOImpl pupilDAOimpl = new PupilDAOImpl();
         TeacherDAOImpl teacherDAOimpl = new TeacherDAOImpl();
 
-        /*Pupil pupil = new Pupil();
-        pupil.setFirstName("nameDAO");
-        pupil.setSerName("sernameDAO");
+        Pupil pupil = new Pupil();
+        pupil.setFirstName("nameDAO1");
+        pupil.setSerName("sernameDAO1");
         pupil.setPosition("pupil");
-        pupil.setAge(10);
+        pupil.setAge(110);
         pupil.setBirthDate(LocalDate.now());
-        pupilDAOimpl.add(pupil);*/
+        pupilDAOimpl.add(pupil);
 
         List<Pupil> list = pupilDAOimpl.getAll();
-        for (Pupil pupil:list)
+        for (Pupil pupil1:list)
         {
-            System.out.println(pupil);
+            System.out.println(pupil1);
         }
 
         /*Teacher teacher = new Teacher();
@@ -43,10 +44,11 @@ public class MainForHibernate
             System.out.println(human.toString());
         }*/
 
-        Pupil p = pupilDAOimpl.getById(8);
+        Pupil p = pupilDAOimpl.getById(1);
         //Teacher t = (Teacher)teacherDAOimpl.getById(3);
-        System.out.println(p.toString());
+        System.out.println("-----------------------------------------------------------");
+        System.out.println(p);
         //System.out.println(t.toString());
-        //HibernateUtil.shutdownSessionFactory();
+        HibernateUtil.shutdownSessionFactory();
     }
 }

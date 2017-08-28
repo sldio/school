@@ -8,20 +8,22 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files
+# Package Files #
 *.jar
 *.war
 *.ear
+*.iml
+*.iws
 *.zip
-*.tar.gz
-*.rar
 
 .idea/
 target/
 out/
 src/main/resources/hibernate.properties
-/src/main/resources/hibernatePostgres.cfg.xml
+/hibernate.cfg.xml
 /src/main/java/Main.java
 
 !/src/main/resources/applicationContent.xml
-!/src/main/resources/hibernate.cfg.xml
+!/hibernateMySQL.cfg.xml
+#!/school.iml
+/src/main/java/connector/
