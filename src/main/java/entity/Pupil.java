@@ -2,6 +2,7 @@ package entity;
 
 import org.hibernate.annotations.Proxy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -18,6 +19,7 @@ public class Pupil extends Human
         super();
     }
 
+    @Column(name = "email")
     private String email;
 
     public String getEmail()

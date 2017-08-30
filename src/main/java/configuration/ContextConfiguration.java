@@ -1,10 +1,13 @@
 package configuration;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -23,15 +26,18 @@ import java.util.Properties;
 public class ContextConfiguration
 {
     private static final Properties properties = getApplicationProperties();
+    private static SessionFactory sessionFactory = getSessionFactory();
 
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(properties.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(properties.getProperty("jdbc.url"));
-        dataSource.setUsername(properties.getProperty("jdbc.username"));
-        dataSource.setPassword(properties.getProperty("jdbc.password"));
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/humans");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+
+        System.out.println("db properties set");
         return dataSource;
     }
 
@@ -60,13 +66,62 @@ public class ContextConfiguration
         return transactionManager;
     }
 
+    @Bean(name = "transactionManager")
+    private static HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)
+    {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager(
+                sessionFactory);
+
+        return transactionManager;
+    }
+
+    private static SessionFactory getSessionFactory()
+    {
+
+        DataSource dataSource = getDatasourceConfiguration();
+        LocalSessionFactoryBean localSessionFactoryBean = generateSessionFactoryBean(new String[] { "repositories" },
+                dataSource, properties);
+        SessionFactory sessionFactory = localSessionFactoryBean.getObject();
+
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(sessionFactory);
+
+        return sessionFactory;
+    }
+
+    private static DataSource getDatasourceConfiguration()
+    {
+
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/humans");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+
+        return dataSource;
+    }
+
+    private static LocalSessionFactoryBean generateSessionFactoryBean(String[] basePackage, DataSource dataSource,
+                                                                      Properties hibernateProperties)
+    {
+
+        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+        localSessionFactoryBean.setDataSource(dataSource);
+        localSessionFactoryBean.setPackagesToScan(basePackage);
+        localSessionFactoryBean.setHibernateProperties(hibernateProperties);
+
+        return localSessionFactoryBean;
+    }
+
     private static Properties getApplicationProperties()
     {
         Properties properties = new Properties();
         try
         {
-            InputStream stream = new FileInputStream("application.properties");
+            InputStream stream = new FileInputStream("src\\main\\resources\\hibernate.properties");
             properties.load(stream);
+            System.out.println("properies loaded");
         }
         catch (FileNotFoundException e)
         {
@@ -76,6 +131,7 @@ public class ContextConfiguration
         {
             System.out.println("error");
         }
+
         return properties;
     }
 }

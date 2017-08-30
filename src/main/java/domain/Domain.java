@@ -1,7 +1,12 @@
 package domain;
 
+import configuration.ContextConfiguration;
+import configuration.JpaConfig;
 import entity.Pupil;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.DefaultResourceLoader;
 import repositories.PupilRepository;
 import repositories.TeacherRepository;
 import util.HibernateUtil;
@@ -12,14 +17,19 @@ import java.util.List;
 /**
  * Created by 1 on 23.08.2017.
  */
+@Import(ContextConfiguration.class)
 public class Domain
 {
     public static void main(String[] args)
     {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContent.xml");
+        JpaConfig jpaConfig = new JpaConfig();
+        jpaConfig.configureDataSource();
 
-        PupilRepository pupilRepository = context.getBean(PupilRepository.class);
-        TeacherRepository teacherRepository = context.getBean(TeacherRepository.class);
+        /*AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ContextConfiguration.class);
+        //PupilRepository pupilRepository = ctx.getBean(PupilRepository.class);
+
+        PupilRepository pupilRepository = ctx.getBean(PupilRepository.class);
+        TeacherRepository teacherRepository = ctx.getBean(TeacherRepository.class);
 
         Pupil pupil = new Pupil();
         pupil.setFirstName("nameDAO");
@@ -55,7 +65,7 @@ public class Domain
         //Pupil p = pupilDAOimpl.getById(8);
         //Teacher t = (Teacher)teacherDAOimpl.getById(3);
         //System.out.println(p.toString());
-        //System.out.println(t.toString());
+        //System.out.println(t.toString());*/
         HibernateUtil.shutdownSessionFactory();
     }
 }
