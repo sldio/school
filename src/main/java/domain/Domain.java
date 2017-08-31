@@ -22,11 +22,9 @@ public class Domain
 {
     public static void main(String[] args)
     {
-        JpaConfig jpaConfig = new JpaConfig();
-        jpaConfig.configureDataSource();
 
-        /*AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ContextConfiguration.class);
-        //PupilRepository pupilRepository = ctx.getBean(PupilRepository.class);
+        //AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext("applicationContent.xml");
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContent.xml");
 
         PupilRepository pupilRepository = ctx.getBean(PupilRepository.class);
         TeacherRepository teacherRepository = ctx.getBean(TeacherRepository.class);
